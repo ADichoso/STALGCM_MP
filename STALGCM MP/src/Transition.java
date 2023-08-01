@@ -40,9 +40,10 @@ public class Transition
     }
     //replacing the top of stack with the pushToStack1 and pushToStack2
     //both conditions for the top of stacks must be true for the transition to operate
-    public boolean replace(Stack stack1, Stack stack2)
+    //also the input character must match the input defined in the transition function
+    public boolean replace(Stack stack1, Stack stack2, char input)
     {
-        if (topOfStack1 == stack1.getTopOfStack() && topOfStack2 == stack2.getTopOfStack())
+        if (topOfStack1 == stack1.getTopOfStack() && topOfStack2 == stack2.getTopOfStack() && input == this.input)
         {
             stack1.push(pushToStack1);
             stack2.push(pushToStack2);
