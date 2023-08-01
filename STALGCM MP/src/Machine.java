@@ -27,9 +27,11 @@ public class Machine {
 
         stack1 = new Stack(Z1);
         stack2 = new Stack(Z2);
+
+        root = new TreeDS();
     }
 
-    public boolean run(State currentState, ArrayList<Character> inputString, int index)
+    public boolean run(ArrayList<Character> inputString)
     {
         //WARNING: NOT OPTIMIZED FOR GUI (yet)
         //loop through arraylist transition, if transition has same start state, continue with function
@@ -64,7 +66,19 @@ public class Machine {
         }
     }
 
-      
+    public void printMachine() {
+        System.out.println("Q: " + Q);
+        System.out.println("E: " + E);
+        System.out.println("Gamma: " + Gamma);
+        System.out.println("Delta: ");
+        for (Transition transition : Delta) {
+            transition.printTransition();
+        }
+        System.out.println("q0: " + q0);
+        System.out.println("Z1: " + Z1);
+        System.out.println("Z2: " + Z2);
+        System.out.println("F: " + F);
+    }
     public TreeDS getTree ()
     {
         return root;

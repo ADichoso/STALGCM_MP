@@ -52,4 +52,9 @@ public class Transition
             return false;
         }
     }
+
+    public void printTransition()
+    {
+        System.out.println("δ( " + currentState.getName() + ", " + input + ", " + topOfStack1 + ", " + topOfStack2 + " ) = { ( " + targetState.getName() + ", " + pushToStack1 + ", " + pushToStack2 + " ) }");
+    }
 }

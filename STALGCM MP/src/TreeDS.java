@@ -6,6 +6,11 @@ public class TreeDS
     private Transition value;
     private List<TreeDS> childNodes;
 
+    public TreeDS() 
+    {
+        this.value = null;
+        this.childNodes = new LinkedList<>();
+    }
     public TreeDS(Transition value) 
     {
         this.value = value;
