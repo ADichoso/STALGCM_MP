@@ -1,22 +1,7 @@
 import javax.swing.*;
-
 import java.awt.*;
-import java.util.ArrayList;
-
-public class TracingFrame extends JFrame{
-
-    //Converts a string into an arraylist of characters
-    public ArrayList<Character> stringToArrayList(String oldString)
-    {
-        ArrayList<Character> newStringList = new ArrayList<Character>();
-        //Loop through the characters in the string
-        for(int i = 0; i < oldString.length(); i++)
-            newStringList.add(0, oldString.charAt(i));
-        
-        return newStringList;
-    }
-
-    public ArrayList<Character> currInputList;
+public class TracingFrame extends JFrame
+{
     public TracingFrame()
     {
         super();
@@ -25,11 +10,41 @@ public class TracingFrame extends JFrame{
         setLayout(new BorderLayout());
         setSize(360, 720);
         setResizable(false);
+        
+        setBackground(new Color(0, 127, 127));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel centerPanel = new JPanel();
+        JPanel topButtonPanel = new JPanel();
+        topButtonPanel.setSize(360, 60);
+        topButtonPanel.setLayout(new FlowLayout());
+        JLabel iterationsLabel = new JLabel("Iterations: 69");
+        JLabel expandedNodesLabel = new JLabel("Expanded Nodes: 420");
+
+        topButtonPanel.add(iterationsLabel);
+        topButtonPanel.add(expandedNodesLabel);
+
+        add(topButtonPanel, BorderLayout.NORTH);
+
+        JPanel transitionsPanel = new JPanel();
+        transitionsPanel.setSize(360, 600);
+        transitionsPanel.setLayout(new FlowLayout());
         
-        add(centerPanel);
+        for(int i = 0; i < 5; i++)
+            transitionsPanel.add(new TransitionPanel());
+        
+        add(transitionsPanel, BorderLayout.CENTER);
+
+        JPanel bottomButtonPanel = new JPanel();
+        bottomButtonPanel.setSize(360, 60);
+        bottomButtonPanel.setLayout(new FlowLayout());
+        JButton previousStatesButton = new JButton("Previous Iteration");
+        JButton nextStatesButton = new JButton("Next Iteration");
+
+        bottomButtonPanel.add(previousStatesButton);
+        bottomButtonPanel.add(nextStatesButton);
+
+        add(bottomButtonPanel, BorderLayout.SOUTH);
+
         setVisible(true);
     }
 }
