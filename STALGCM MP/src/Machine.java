@@ -57,14 +57,14 @@ public class Machine {
             //if the current state of the transition is the same as the target state of the current transition, it means that it is the next step to check
             if (transition.getCurrentState() == currentTransition.getTargetState()) {
                 boolean accepted = transition.replace(stack1, stack2, inputString.get(index));
-                if(accepted) 
-                
-
-                    checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition);                }
+                if(accepted) {
+                    checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition);                
+                }
             } 
         }
+    }
 
-      }
+      
     public TreeDS getTree ()
     {
         return root;
