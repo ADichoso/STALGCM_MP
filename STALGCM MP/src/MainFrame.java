@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame{
@@ -23,7 +24,6 @@ public class MainFrame extends JFrame{
     private ArrayList<String> machineColumn[];
 
     private JButton machineFileButton;
-    private MachineInputFrame machineInputFrame;
     private JLabel startStateLabel;
     private JLabel statesLabel;
     private JLabel inputAlphabetLabel;
@@ -34,6 +34,8 @@ public class MainFrame extends JFrame{
     private JLabel finalStateLabel;
 
     private Machine currMachine;
+    private String filename;
+    private ReadGrammar readGrammar;
     public MainFrame()
     {
         super();
@@ -49,11 +51,22 @@ public class MainFrame extends JFrame{
 
         JLabel titleLabel = new JLabel("2-Stack Pushdown Automata Reader");
         machineFileButton = new JButton("Input Machine File");
-
-        machineInputFrame = new MachineInputFrame();
+        
         machineFileButton.addActionListener(e -> 
         {
-            machineInputFrame.setVisible(true);
+            JFileChooser fileChooser = new JFileChooser();
+
+            int result = fileChooser.showOpenDialog(this);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    generateMachine(fileChooser.getSelectedFile().getPath());
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            } else if (result == JFileChooser.CANCEL_OPTION) {
+                System.out.println("Cancel was selected");
+            }
         });
 
         topPanel.add(machineFileButton);
@@ -158,9 +171,14 @@ public class MainFrame extends JFrame{
     }
 
     
-    public void setMachine(Machine machine)
+    private void generateMachine(String filepath) throws IOException
     {
-        currMachine = machine;
+        filename = filepath;
+        System.out.println(filename);
+
+        readGrammar = new ReadGrammar(filename);
+        currMachine = readGrammar.loadGrammar();
+
         updateMachineInfo();
     }
 
