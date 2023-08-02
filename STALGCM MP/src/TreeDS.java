@@ -32,7 +32,7 @@ public class TreeDS
     }
 
     public void addChild(TreeDS childNode) {
-        childNode.parent = this;
+        childNode.setParent(this);
         this.childNodes.add(childNode);
         isLeaf = false;
     }
@@ -48,6 +48,10 @@ public class TreeDS
 
     public Transition getValue() {
         return value;
+    }
+
+    public void setParent(TreeDS parent) {
+        this.parent = parent;
     }
 
     public void printValue()
