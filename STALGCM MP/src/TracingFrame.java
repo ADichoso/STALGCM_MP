@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 public class TracingFrame extends JFrame
 {
+    private JPanel transitionsPanel;
+    private ArrayList<TransitionPanel> transitionsList = new ArrayList<TransitionPanel>();
     public TracingFrame()
     {
         super();
@@ -24,12 +27,9 @@ public class TracingFrame extends JFrame
 
         add(topButtonPanel, BorderLayout.NORTH);
 
-        JPanel transitionsPanel = new JPanel();
+        transitionsPanel = new JPanel();
         transitionsPanel.setSize(360, 600);
         transitionsPanel.setLayout(new FlowLayout());
-        
-        for(int i = 0; i < 5; i++)
-            transitionsPanel.add(new TransitionPanel());
         
         add(transitionsPanel, BorderLayout.CENTER);
 
@@ -39,11 +39,109 @@ public class TracingFrame extends JFrame
         JButton previousStatesButton = new JButton("Previous Iteration");
         JButton nextStatesButton = new JButton("Next Iteration");
 
+        previousStatesButton.addActionListener(e -> 
+        {
+            if(TreeLayers.size() != 0)
+            {
+                //Go back a layer
+                showResults(currLayer - 1);
+            }
+        });
+
+        nextStatesButton.addActionListener(e -> 
+        {
+            if(TreeLayers.size() != 0)
+            {
+                //Go up a layer
+                showResults(currLayer + 1);
+            }
+        });
+        
         bottomButtonPanel.add(previousStatesButton);
         bottomButtonPanel.add(nextStatesButton);
 
         add(bottomButtonPanel, BorderLayout.SOUTH);
+    }
 
+    private Machine currMachine;
+    private boolean currResult;
+    private int currLayer;
+    private int numLayers;
+    private ArrayList<ArrayList<TreeDS>> TreeLayers = new ArrayList<ArrayList<TreeDS>>();
+    public void passResults(Machine machine, boolean result)
+    {
+        currMachine = machine;
+        currResult = result;
+
+        //Go through the child nodes
+        TreeDS root = machine.getTree();
+        ArrayList<TreeDS> treeLayer = new ArrayList<TreeDS>();
+        treeLayer.add(root);
+        TreeLayers.add(treeLayer);
+
+        int currlayerindex = 0;
+        boolean hasChildren = false;
+        do
+        {
+            System.out.println("=======================");
+            hasChildren = false;
+            //Go through the current layers in tree layer
+            ArrayList<TreeDS> currLayer = TreeLayers.get(currlayerindex);
+
+            ArrayList<TreeDS> nextLayer = new ArrayList<TreeDS>();
+            for(TreeDS currTree : currLayer)
+            {
+                //Expand the tree, and then proceed to place it inside a new arraylist
+                for(TreeDS child : currTree.getChildren())
+                {
+                    nextLayer.add(child);
+                    hasChildren = true;
+                    System.out.println(child.getValue().showTransition());
+                }
+            }
+
+            if(!hasChildren)
+                break;
+            TreeLayers.add(nextLayer);
+            currlayerindex++;
+        } while(hasChildren);
+
+        //remove the first element, since the root node in the tree does not have any associated transitions with it
+        TreeLayers.remove(0);
+
+        System.out.println(TreeLayers);
+
+        numLayers = TreeLayers.size();
+        showResults(0);
+    }
+
+    public void showResults(int treeLayer)
+    {
+        if(treeLayer < 0)
+            currLayer = 0;
+        else if (treeLayer > numLayers - 1)
+            currLayer = numLayers - 1;
+        else
+            currLayer = treeLayer;
+
+        //Get the children in the chosen layer
+        ArrayList<TreeDS> currLayerTrees = TreeLayers.get(currLayer);
+
+        //Remove the previous transitions
+        transitionsPanel.removeAll();
+        transitionsList = new ArrayList<TransitionPanel>();
+        
+        //Go to the specified layer in the tree, if possible
+        for(TreeDS currTree : currLayerTrees)
+        {
+            TransitionPanel newPanel = new TransitionPanel(currTree.getValue());
+            transitionsList.add(newPanel);
+        }
+
+        //Display the transitions
+        for(TransitionPanel currPanel : transitionsList)
+            transitionsPanel.add(currPanel);
+        
         setVisible(true);
     }
 }

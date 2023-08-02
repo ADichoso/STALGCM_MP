@@ -2,7 +2,8 @@ import javax.swing.*;
 
 import java.awt.*;
 public class TransitionPanel extends JPanel{
-    public TransitionPanel()
+
+    public TransitionPanel(Transition transition)
     {
         super();
         //Basic JPanel attributes
@@ -11,7 +12,7 @@ public class TransitionPanel extends JPanel{
         setBackground(new Color(0, 255, 127));
 
         //Text to describe 
-        JLabel transitionText = new JLabel("Hellooo", SwingConstants.CENTER);
+        JLabel transitionText = new JLabel(transition.showTransition(), SwingConstants.CENTER);
         add(transitionText, BorderLayout.NORTH);
         setVisible(true);
     }

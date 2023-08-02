@@ -36,6 +36,9 @@ public class MainFrame extends JFrame{
     private Machine currMachine;
     private String filename;
     private ReadGrammar readGrammar;
+
+    private boolean currResult = false;
+    private TracingFrame childFrame;
     public MainFrame()
     {
         super();
@@ -45,6 +48,8 @@ public class MainFrame extends JFrame{
         setSize(720, 540);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        childFrame = new TracingFrame();
 
         JPanel topPanel = new JPanel();
         topPanel.setOpaque(false);
@@ -141,16 +146,17 @@ public class MainFrame extends JFrame{
         JButton inputStringSubmitButton = new JButton("Submit");
         inputStringSubmitButton.addActionListener(e ->
         {
-            String input = inputStringTextField.getText();
-            if(!input.equals(""))
+            if(currMachine != null)
             {
-                ArrayList<Character> stringList = stringToArrayList(input);
-
-                for(char inputChar : stringList)
+                String input = inputStringTextField.getText();
+                if(!input.equals(""))
                 {
-                    System.out.println(inputChar);
+                    currInputList = stringToArrayList(input);
+                    currResult = currMachine.run(currInputList);
+
+                    inputStringTextField.setText("");
+                    childFrame.passResults(currMachine, currResult);
                 }
-                currInputList = stringList;
             }
         });
         bottomButtonPanel.add(inputStringTextField, BorderLayout.SOUTH);
