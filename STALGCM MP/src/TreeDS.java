@@ -30,5 +30,9 @@ public class TreeDS
         return value;
     }
 
+    public void printValue()
+    {
+        value.printTransition();
+    }
 
 }

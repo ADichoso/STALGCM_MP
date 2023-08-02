@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Stack
 {
@@ -20,19 +21,25 @@ public class Stack
 
     public char getTopOfStack()
     {
-        return stack.get(stack.size() - 1);
+        System.out.println("Top of Stack: " + stack.get(0));
+        return stack.get(0);
     }
 
     //push by removing the top of the stack and adding the new symbol
     public void push (ArrayList<Character> symbol)
     {
-        stack.remove(stack.size() - 1);
-        stack.addAll(symbol);
+        stack.remove(0);
+        stack.addAll(0,symbol);
     }
 
     public boolean isEmpty()
     {
         return stack.size() == 0;
+    }
+
+    public void printStack()
+    {
+        System.out.println(stack);
     }
 
 }

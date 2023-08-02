@@ -1,5 +1,5 @@
 import java.io.IOException;
-
+import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
         float number = 1 + 1.0f;
@@ -10,5 +10,10 @@ public class Main {
         Machine machine = grammar.loadGrammar();
 
         machine.printMachine();
+
+        machine.run(Utilities.stringToCharArrayList("111"));
+        
     }
+
+
 }

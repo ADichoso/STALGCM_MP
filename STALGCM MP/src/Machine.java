@@ -49,19 +49,30 @@ public class Machine {
 
     public void checkPath (State currentState, ArrayList<Character> inputString, int index, TreeDS currentNode, Transition currentTransition)
     {
-        //make new child node for the current transition function
-        TreeDS nextNode = new TreeDS(currentTransition);
 
-        //append it to the tree
-        currentNode.addChild(nextNode);
 
         for(Transition transition: Delta) {
+
             //if the current state of the transition is the same as the target state of the current transition, it means that it is the next step to check
-            if (transition.getCurrentState() == currentTransition.getTargetState()) {
+            if (transition.getCurrentState() == currentState && inputString.size() > index) {
+
+                //make new child node for the current transition function
+                TreeDS nextNode = new TreeDS(transition);
+                System.out.println(index);
+                nextNode.printValue();
+                //append it to the tree
+                currentNode.addChild(nextNode);
+                stack1.printStack();
+                stack2.printStack();
                 boolean accepted = transition.replace(stack1, stack2, inputString.get(index));
+                stack1.printStack();
+                stack2.printStack();
+                System.out.println(accepted);
+
                 if(accepted) {
                     checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition);                
                 }
+
             } 
         }
     }

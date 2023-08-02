@@ -90,18 +90,8 @@ public class ReadGrammar
             String stack1Push = s.next();
             String stack2Push = s.next();
 
-            ArrayList <Character> stack1PushArray = new ArrayList<Character>();
-            ArrayList <Character> stack2PushArray = new ArrayList<Character>();
-
-            for (int j = 0; j < stack1Push.length(); j++)
-            {
-                stack1PushArray.add(stack1Push.charAt(j));
-            }
-
-            for (int j = 0; j < stack2Push.length(); j++)
-            {
-                stack2PushArray.add(stack2Push.charAt(j));
-            }
+            ArrayList <Character> stack1PushArray = Utilities.stringToCharArrayList(stack1Push);
+            ArrayList <Character> stack2PushArray = Utilities.stringToCharArrayList(stack2Push);
 
             State currentState = null;
             State targetState = null;
