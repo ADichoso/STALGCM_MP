@@ -83,7 +83,8 @@ public class Machine {
  
         if (inputString.size() == index)
         {
-            return F.contains(currentState);
+            currentNode.setAccepted();
+            return F.contains(currentState);   
         }
 
         for(Transition transition: Delta) {

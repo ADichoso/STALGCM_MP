@@ -4,6 +4,8 @@ import java.util.List;
 public class TreeDS 
 {
     private Transition value;
+    private boolean accepted = false;
+    private boolean isLeaf = true;
     private List<TreeDS> childNodes;
     private TreeDS parent;
 
@@ -12,17 +14,20 @@ public class TreeDS
         this.value = null;
         this.childNodes = new LinkedList<>();
         this.parent = null;
+        
     }
     
     public TreeDS(Transition value) 
     {
         this.value = value;
         this.childNodes = new LinkedList<>();
+        isLeaf = true;
     }
 
     public void addChild(TreeDS childNode) {
         childNode.parent = this;
         this.childNodes.add(childNode);
+        isLeaf = false;
     }
 
     public TreeDS getParent() {
@@ -42,5 +47,18 @@ public class TreeDS
     {
         value.printTransition();
     }
+    public boolean isLeaf()
+    {
+        return isLeaf;
+    }
 
+    public void setAccepted()
+    {
+        accepted = true;
+    }
+    
+    public boolean isAccepted()
+    {
+        return accepted;
+    }
 }
