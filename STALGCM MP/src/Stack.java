@@ -60,4 +60,12 @@ public class Stack
         System.out.println(stack);
     }
 
+    public String showStack()
+    {
+        String stackString = "";
+        for(char c : stack)
+            stackString += c;
+        return stackString;
+    }
+
 }

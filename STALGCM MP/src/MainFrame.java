@@ -155,7 +155,7 @@ public class MainFrame extends JFrame{
                     currResult = currMachine.run(currInputList);
 
                     inputStringTextField.setText("");
-                    childFrame.passResults(currMachine, currResult);
+                    childFrame.passResults(currMachine, currResult, currInputList, currMachine.Q.get(0).getName());
                 }
             }
         });

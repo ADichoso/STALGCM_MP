@@ -68,8 +68,13 @@ public class TracingFrame extends JFrame
     private int currLayer;
     private int numLayers;
     private ArrayList<ArrayList<TreeDS>> TreeLayers = new ArrayList<ArrayList<TreeDS>>();
-    public void passResults(Machine machine, boolean result)
+    private ArrayList<Character> inputList = new ArrayList<Character>();
+    private String initialStateName;
+    public void passResults(Machine machine, boolean result, ArrayList<Character> inputList, String initialStateName)
     {
+        this.inputList = (ArrayList<Character>) inputList.clone();
+        this.initialStateName = initialStateName;
+
         currMachine = machine;
         currResult = result;
 
@@ -106,9 +111,6 @@ public class TracingFrame extends JFrame
             currlayerindex++;
         } while(hasChildren);
 
-        //remove the first element, since the root node in the tree does not have any associated transitions with it
-        TreeLayers.remove(0);
-
         System.out.println(TreeLayers);
 
         numLayers = TreeLayers.size();
@@ -124,23 +126,46 @@ public class TracingFrame extends JFrame
         else
             currLayer = treeLayer;
 
-        //Get the children in the chosen layer
-        ArrayList<TreeDS> currLayerTrees = TreeLayers.get(currLayer);
-
         //Remove the previous transitions
         transitionsPanel.removeAll();
         transitionsList.clear();
-        
-        //Go to the specified layer in the tree, if possible
-        for(TreeDS currTree : currLayerTrees)
-        {
-            TransitionPanel newPanel = new TransitionPanel(currTree.getValue());
-            transitionsList.add(newPanel);
-        }
 
-        //Display the transitions
-        for(TransitionPanel currPanel : transitionsList)
-            transitionsPanel.add(currPanel);
+        if(currLayer == 0)
+        {
+            //Special case at the start.
+            JPanel startPanel = new JPanel();
+
+            JLabel startText = new JLabel("Starting State Here! Click Next Iteration to explore states by step!");
+            startPanel.add(startText);
+            
+            transitionsPanel.add(startPanel);
+        }
+        else
+        {
+            //Generate String from current Step
+            String currString = "";
+            for(int i = 0; i < treeLayer; i++)
+                currString += inputList.get(i);
+
+            //Get the children in the chosen layer
+            ArrayList<TreeDS> currLayerTrees = TreeLayers.get(currLayer);
+            
+            //Go to the specified layer in the tree, if possible
+            for(TreeDS currTree : currLayerTrees)
+            {
+                TransitionPanel newPanel;
+                if(currLayer == 1)
+                    newPanel = new TransitionPanel(currTree, currString, true, initialStateName);
+                else
+                    newPanel = new TransitionPanel(currTree, currString, false, initialStateName);
+                
+                transitionsList.add(newPanel);
+            }
+
+            //Display the transitions
+            for(TransitionPanel currPanel : transitionsList)
+                transitionsPanel.add(currPanel);
+        }
         
         transitionsPanel.revalidate();
         transitionsPanel.repaint();
