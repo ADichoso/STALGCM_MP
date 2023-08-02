@@ -2,16 +2,16 @@ import java.util.ArrayList;
 
 public class Machine {
 
-    private ArrayList<State> Q; //finite set of states
-    private ArrayList<Character> E; //input alphabet
-    private ArrayList<Character> Gamma; //stack alphabet
-    private ArrayList<Transition> Delta; //the transition relation
-    private State q0; //start state
-    private char Z1;// the initial stack symbol
-    private char Z2;// the initial stack symbol
-    private ArrayList<State> F; //list of accepting states.
-    private Stack stack1; //first stack
-    private Stack stack2; //second stack
+    public ArrayList<State> Q; //finite set of states
+    public ArrayList<Character> E; //input alphabet
+    public ArrayList<Character> Gamma; //stack alphabet
+    public ArrayList<Transition> Delta; //the transition relation
+    public State q0; //start state
+    public char Z1;// the initial stack symbol
+    public char Z2;// the initial stack symbol
+    public ArrayList<State> F; //list of accepting states.
+    public Stack stack1; //first stack
+    public Stack stack2; //second stack
 
     private TreeDS root; //root of the tree datastructure
 

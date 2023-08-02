@@ -12,7 +12,6 @@ public class TracingFrame extends JFrame
         setResizable(false);
         
         setBackground(new Color(0, 127, 127));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel topButtonPanel = new JPanel();
         topButtonPanel.setSize(360, 60);
