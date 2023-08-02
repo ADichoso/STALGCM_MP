@@ -129,7 +129,7 @@ public class TracingFrame extends JFrame
 
         //Remove the previous transitions
         transitionsPanel.removeAll();
-        transitionsList = new ArrayList<TransitionPanel>();
+        transitionsList.clear();
         
         //Go to the specified layer in the tree, if possible
         for(TreeDS currTree : currLayerTrees)
@@ -142,6 +142,8 @@ public class TracingFrame extends JFrame
         for(TransitionPanel currPanel : transitionsList)
             transitionsPanel.add(currPanel);
         
+        transitionsPanel.revalidate();
+        transitionsPanel.repaint();
         setVisible(true);
     }
 }
