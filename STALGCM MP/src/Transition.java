@@ -55,6 +55,21 @@ public class Transition
 
     public void printTransition()
     {
-        System.out.println("δ( " + currentState.getName() + ", " + input + ", " + topOfStack1 + ", " + topOfStack2 + " ) = { ( " + targetState.getName() + ", " + pushToStack1 + ", " + pushToStack2 + " ) }");
+        System.out.println(showTransition());
+    }
+
+    public String showTransition()
+    {
+        return "δ(" + currentState.getName() + ", " + input + ", " + topOfStack1 + ", " + topOfStack2 + ") = (" + targetState.getName() + ", " + pushToStackToString(pushToStack1) + ", " + pushToStackToString(pushToStack2) + ")";
+    }
+
+    private String pushToStackToString(ArrayList<Character> pushToStack)
+    {
+        String stackString = "";
+
+        for(Character c : pushToStack)
+            stackString += c;
+        
+        return stackString;
     }
 }
