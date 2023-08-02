@@ -3,7 +3,7 @@ import java.util.Collections;
 
 public class Stack
 {
-    private ArrayList<Character> stack;
+    public ArrayList<Character> stack;
     public char initialSymbol = 'Z';
 
     public Stack()
@@ -12,6 +12,11 @@ public class Stack
         stack.add(initialSymbol);
     }
 
+    public Stack(Stack oldStack)
+    {
+        stack = (ArrayList<Character>) oldStack.stack.clone();
+        initialSymbol = oldStack.initialSymbol;
+    }
     //for custom pushdown symbol
     public Stack(char initialSymbol)
     {

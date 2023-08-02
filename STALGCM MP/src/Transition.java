@@ -13,7 +13,7 @@ public class Transition
 
     //δ( q0, a, Z, Z ) = { ( q0, AZ, AZ ) } 
     //δ( currentState, input, topOfStack1, topOfStack2 ) = { ( targetState, pushToStack1, pushToStack2 ) } 
-    public Transition (State currenState, State targetState, char input, char topOfStack1, char topOfStack2, ArrayList<Character> pushToStack1, ArrayList<Character> pushToStack2)
+    public Transition(State currenState, State targetState, char input, char topOfStack1, char topOfStack2, ArrayList<Character> pushToStack1, ArrayList<Character> pushToStack2)
     {
         this.currentState = currenState;
         this.targetState = targetState;

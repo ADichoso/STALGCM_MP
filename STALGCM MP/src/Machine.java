@@ -52,8 +52,8 @@ public class Machine {
 
     public void checkPath (State currentState, ArrayList<Character> inputString, int index, TreeDS currentNode, Transition currentTransition, Stack stack1, Stack stack2)
     {
-
-
+        Stack oldStack1 = new Stack(stack1);
+        Stack oldStack2 = new Stack(stack2);
         for(Transition transition: Delta) {
 
             //if the current state of the transition is the same as the target state of the current transition, it means that it is the next step to check
