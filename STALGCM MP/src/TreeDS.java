@@ -8,6 +8,8 @@ public class TreeDS
     private boolean isLeaf = true;
     private List<TreeDS> childNodes;
     private TreeDS parent;
+    private Stack stack1;
+    private Stack stack2;
 
     public TreeDS() 
     {
@@ -17,11 +19,16 @@ public class TreeDS
         
     }
     
-    public TreeDS(Transition value) 
+    public TreeDS(Transition value, Stack stack1, Stack stack2) 
     {
         this.value = value;
         this.childNodes = new LinkedList<>();
-        isLeaf = true;
+        this.parent = null;
+        this.stack1 = new Stack(stack1);
+        this.stack2 = new Stack(stack2);
+        // System.out.println("STACK for the new node");
+        // stack1.printStack();
+        // stack2.printStack();
     }
 
     public void addChild(TreeDS childNode) {
@@ -60,5 +67,17 @@ public class TreeDS
     public boolean isAccepted()
     {
         return accepted;
+    }
+
+    public Stack getStack(int stackNumber)
+    {
+        if (stackNumber == 1)
+        {
+            return stack1;
+        }
+        else
+        {
+            return stack2;
+        }
     }
 }

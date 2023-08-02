@@ -41,14 +41,17 @@ public class Machine {
         {
             if (transition.getCurrentState() == q0)
             {
-                TreeDS nextNode = new TreeDS(transition);
+
+                stack1 = new Stack(Z1);
+                stack2 = new Stack(Z2);
+                
+                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
                 System.out.println(0);
                 nextNode.printValue();
                 //append it to the tree
                 root.addChild(nextNode);
 
-                stack1 = new Stack(Z1);
-                stack2 = new Stack(Z2);
+
                 System.out.println("=====================================================START OF START STATE ============================================");
                 //if the first transition function is accepted, continue with the path, else ignore and move on.
                 transition.printTransition();
@@ -94,7 +97,7 @@ public class Machine {
             if (transition.getCurrentState() == currentState && inputString.size() > index) {
 
                 //make new child node for the current transition function
-                TreeDS nextNode = new TreeDS(transition);
+                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
                 System.out.println(index);
                 nextNode.printValue();
                 //append it to the tree
