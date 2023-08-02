@@ -41,6 +41,11 @@ public class Stack
     {
         stack.addAll(0,symbol);
     }
+
+    public void pop()
+    {
+        stack.remove(0);
+    }
     public boolean isEmpty()
     {
         return stack.size() == 0;

@@ -54,6 +54,7 @@ public class Machine {
     {
         Stack oldStack1 = new Stack(stack1);
         Stack oldStack2 = new Stack(stack2);
+        
         for(Transition transition: Delta) {
 
             //if the current state of the transition is the same as the target state of the current transition, it means that it is the next step to check
@@ -75,6 +76,9 @@ public class Machine {
                 if(accepted) {
                     checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
                 }
+
+                stack1 = new Stack(oldStack1);
+                stack2 = new Stack(oldStack2);
 
             } 
         }

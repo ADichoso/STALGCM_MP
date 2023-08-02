@@ -45,6 +45,7 @@ public class Transition
     {
         if ((topOfStack1 == stack1.getTopOfStack() || (topOfStack1 == '&')) && (topOfStack2 == stack2.getTopOfStack() || topOfStack2 == '&') && input == this.input)
         {
+            //System.out.println("Push to Stack 1: " + pushToStack1.get(0));
             if (!pushToStack1.contains('&'))
             {
                 if (topOfStack1 != '&')
@@ -54,9 +55,14 @@ public class Transition
                     stack1.pushFromLambda(pushToStack1);
                 }
 
+            } else {
+                if (topOfStack1 != '&')
+                {
+                    stack1.pop();
+                }
             }
             
-            if (!pushToStack2.contains('&'))
+            if (!pushToStack1.contains('&'))
             {
                 if (topOfStack2 != '&')
                 {
@@ -64,8 +70,12 @@ public class Transition
                 } else {
                     stack2.pushFromLambda(pushToStack2);
                 }
+            } else {
+                if (topOfStack2 != '&')
+                {
+                    stack2.pop();
+                }
             }
-            stack2.push(pushToStack2);
             return true;
         } else {
             return false;
