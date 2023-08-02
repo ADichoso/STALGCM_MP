@@ -43,9 +43,28 @@ public class Transition
     //also the input character must match the input defined in the transition function
     public boolean replace(Stack stack1, Stack stack2, char input)
     {
-        if (topOfStack1 == stack1.getTopOfStack() && topOfStack2 == stack2.getTopOfStack() && input == this.input)
+        if ((topOfStack1 == stack1.getTopOfStack() || (topOfStack1 == '&')) && (topOfStack2 == stack2.getTopOfStack() || topOfStack2 == '&') && input == this.input)
         {
-            stack1.push(pushToStack1);
+            if (!pushToStack1.contains('&'))
+            {
+                if (topOfStack1 != '&')
+                {
+                    stack1.push(pushToStack1);
+                } else {
+                    stack1.pushFromLambda(pushToStack1);
+                }
+
+            }
+            
+            if (!pushToStack2.contains('&'))
+            {
+                if (topOfStack2 != '&')
+                {
+                    stack2.push(pushToStack2);
+                } else {
+                    stack2.pushFromLambda(pushToStack2);
+                }
+            }
             stack2.push(pushToStack2);
             return true;
         } else {

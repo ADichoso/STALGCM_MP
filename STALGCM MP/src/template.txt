@@ -7,7 +7,7 @@ Z Z/*list of initial stack symbols*/
 X Y Z /*list of stack alphabet*/
 2 /*number of transitions*/
 A 1 Z Z B XZ XZ /*Transition such that <Current State> <Input> <Top of Stack 1> <Top of Stack 2> <Target State> <Replacement String for Top of Stack 1> <Replacement String for Top of Stack 2>
-B 1 X X C XX XX
+B 1 X X C XX XX /*& - lambda*/
 A /*Start State*/
 1 /*Number of Final States*/
 B /*List of Final States*/

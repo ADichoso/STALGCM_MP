@@ -32,6 +32,10 @@ public class Stack
         stack.addAll(0,symbol);
     }
 
+    public void pushFromLambda (ArrayList<Character> symbol)
+    {
+        stack.addAll(0,symbol);
+    }
     public boolean isEmpty()
     {
         return stack.size() == 0;

@@ -39,15 +39,18 @@ public class Machine {
         {
             if (transition.getCurrentState() == q0)
             {
+                stack1 = new Stack(Z1);
+                stack2 = new Stack(Z2);
+                System.out.println("START RUNNING ============================================");
                 //if it finds a transition function from the start state, being searching.
-                checkPath (transition.getCurrentState(), inputString, 0, root, transition);
+                checkPath (transition.getCurrentState(), inputString, 0, root, transition, stack1, stack2);
             }
             //loop through the connections
         }
         return true;
     }
 
-    public void checkPath (State currentState, ArrayList<Character> inputString, int index, TreeDS currentNode, Transition currentTransition)
+    public void checkPath (State currentState, ArrayList<Character> inputString, int index, TreeDS currentNode, Transition currentTransition, Stack stack1, Stack stack2)
     {
 
 
@@ -70,7 +73,7 @@ public class Machine {
                 System.out.println(accepted);
 
                 if(accepted) {
-                    checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition);                
+                    checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
                 }
 
             } 
