@@ -12,7 +12,7 @@ public class Main {
         Machine machine = grammar.loadGrammar();
         machine.printMachine();
 
-        System.out.println("RESULT: " + machine.run(Utilities.stringToCharArrayList("1")));
+        System.out.println("RESULT: " + machine.run(Utilities.stringToCharArrayList("11")));
         
     }
 }
