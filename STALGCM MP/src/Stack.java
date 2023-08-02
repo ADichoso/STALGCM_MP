@@ -26,6 +26,11 @@ public class Stack
 
     public char getTopOfStack()
     {
+        //if empty stack, return lambda
+        if (stack.size() == 0)
+        {
+            return '&';
+        }
         System.out.println("Top of Stack: " + stack.get(0));
         return stack.get(0);
     }

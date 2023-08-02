@@ -35,29 +35,60 @@ public class Machine {
     {
         //WARNING: NOT OPTIMIZED FOR GUI (yet)
         //loop through arraylist transition, if transition has same start state, continue with function
+        boolean result = false;
         for (Transition transition: Delta)
         {
             if (transition.getCurrentState() == q0)
             {
+                TreeDS nextNode = new TreeDS(transition);
+                System.out.println(0);
+                nextNode.printValue();
+                //append it to the tree
+                root.addChild(nextNode);
+
                 stack1 = new Stack(Z1);
                 stack2 = new Stack(Z2);
-                System.out.println("START RUNNING ============================================");
-                //if it finds a transition function from the start state, being searching.
-                checkPath (transition.getCurrentState(), inputString, 0, root, transition, stack1, stack2);
+                System.out.println("=====================================================START OF START STATE ============================================");
+                //if the first transition function is accepted, continue with the path, else ignore and move on.
+                transition.printTransition();
+                boolean accepted = transition.replace(stack1, stack2, inputString.get(0));
+                stack1.printStack();
+                stack2.printStack();
+                if (accepted)
+                {
+                    result = checkPath (transition.getTargetState(), inputString, 1, nextNode, transition, stack1, stack2);
+                }
+                    
+                if (result == true)
+                {
+                    //System.out.println("ACCEPTED");
+                    return true;
+                }
             }
             //loop through the connections
         }
-        return true;
+        return result;
     }
 
-    public void checkPath (State currentState, ArrayList<Character> inputString, int index, TreeDS currentNode, Transition currentTransition, Stack stack1, Stack stack2)
+    public boolean checkPath (State currentState, ArrayList<Character> inputString, int index, TreeDS currentNode, Transition currentTransition, Stack stack1, Stack stack2)
     {
+        boolean legal = false;
+        System.out.println("=======================================================================");
         Stack oldStack1 = new Stack(stack1);
         Stack oldStack2 = new Stack(stack2);
-        
+
+        //if this is the last input, check if the current state is an accepting state
+        System.out.println("Current State: " + currentState.getName());
+ 
+        if (inputString.size() == index)
+        {
+            return F.contains(currentState);
+        }
+
         for(Transition transition: Delta) {
 
-            //if the current state of the transition is the same as the target state of the current transition, it means that it is the next step to check
+
+            //if the transition function has the same current state as the parameter and the input string is still not empty
             if (transition.getCurrentState() == currentState && inputString.size() > index) {
 
                 //make new child node for the current transition function
@@ -66,22 +97,39 @@ public class Machine {
                 nextNode.printValue();
                 //append it to the tree
                 currentNode.addChild(nextNode);
-                stack1.printStack();
-                stack2.printStack();
+                // stack1.printStack();
+                // stack2.printStack();
+                //System.out.println(accepted);
+
+                //attempt to replace the top of the stack with the input, returns false if the conditions stated in the transition function is not satisfied.
                 boolean accepted = transition.replace(stack1, stack2, inputString.get(index));
                 stack1.printStack();
                 stack2.printStack();
-                System.out.println(accepted);
 
-                if(accepted) {
-                    checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
+                //if the conditions of the transition function are satisfied and the two stacks are updated.
+                if (accepted)
+                {
+
+                    //if transition takes in a lambda input, dont proceed with the next input but continue with the next transition function
+                    if(transition.getInput() == '&')
+                    {
+                        legal = checkPath(transition.getTargetState(), inputString, index, nextNode, transition, stack1, stack2);
+                    }
+                    else
+                    {
+                        legal = checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
+                    }
                 }
+
+                if (legal) return legal;
 
                 stack1 = new Stack(oldStack1);
                 stack2 = new Stack(oldStack2);
 
             } 
         }
+
+        return false;
     }
 
     public void printMachine() {

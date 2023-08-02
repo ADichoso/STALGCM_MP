@@ -5,9 +5,11 @@ A B C D E
 Z Z
 3
 X Y Z
-4
+6
 A 1 Z Z B XZ XZ
 B 1 X X C XX XX
+B 1 X X B & &
+C 1 X X D XX XX
 A 1 & & C XX XX
 A 1 Z Z C & &
 A

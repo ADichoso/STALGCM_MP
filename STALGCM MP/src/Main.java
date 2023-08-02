@@ -6,6 +6,13 @@ public class Main {
         
         MainFrame frame = new MainFrame();
         TracingFrame childFrame = new TracingFrame();
+
+        //For testing the machine
+        ReadGrammar grammar = new ReadGrammar("STALGCM MP\\src\\testinput.txt");
+        Machine machine = grammar.loadGrammar();
+        machine.printMachine();
+
+        System.out.println("RESULT: " + machine.run(Utilities.stringToCharArrayList("1")));
         
     }
 }
