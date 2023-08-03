@@ -1,0 +1,18 @@
+4 
+A B C D 
+3 
+0 1 2
+Z Z 
+2 
+X Z 
+7 
+A 0 Z Z A XZ Z
+A 0 X Z A XX Z
+A 1 X Z B & XZ
+B 1 X X B & XX
+B 2 Z X C Z &
+C 2 Z X C Z &
+C & Z Z D Z Z
+A 
+1 
+D

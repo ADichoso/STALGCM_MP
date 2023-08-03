@@ -40,15 +40,15 @@ public class TransitionPanel extends JPanel{
         if(!treeNode.isLeaf())
         {
             //Color with NonLeaf color
-            setBackground(new Color(25, 25, 127));
+            setBackground(new Color(159, 159, 203));
         } 
         else
         {
             //Either Accepted (Green) or Rejected (Red)
             if(treeNode.isAccepted())
-                setBackground(new Color(25, 255, 127));
+                setBackground(new Color(144, 224, 144));
             else
-                setBackground(new Color(255, 25, 127));
+                setBackground(new Color(232, 120, 120));
         } 
         setVisible(true);
     }

@@ -13,15 +13,19 @@ public class MainFrame extends JFrame{
         ArrayList<Character> newStringList = new ArrayList<Character>();
         //Loop through the characters in the string
         for(int i = 0; i < oldString.length(); i++)
-            newStringList.add(0, oldString.charAt(i));
+            newStringList.add(oldString.charAt(i));
         
         return newStringList;
     }
 
+    public boolean isValidInput()
+    {
+        for(int i = 0; i < currInputList.size(); i++)
+            if(!currMachine.E.contains(currInputList.get(i)))
+                return false;
+        return true;
+    }
     public ArrayList<Character> currInputList;
-
-    private ArrayList<ArrayList<String>> machineData[][];
-    private ArrayList<String> machineColumn[];
 
     private JButton machineFileButton;
     private JLabel startStateLabel;
@@ -32,7 +36,7 @@ public class MainFrame extends JFrame{
     private DefaultTableModel transitionTableModel;
     private JLabel transitionLabel;
     private JLabel finalStateLabel;
-
+    private JLabel errorLabel;
     private Machine currMachine;
     private String filename;
     private ReadGrammar readGrammar;
@@ -152,13 +156,21 @@ public class MainFrame extends JFrame{
                 if(!input.equals(""))
                 {
                     currInputList = stringToArrayList(input);
-                    currResult = currMachine.run(currInputList);
-
-                    inputStringTextField.setText("");
-                    childFrame.passResults(currMachine, currResult, currInputList, currMachine.Q.get(0).getName());
+                    if(isValidInput())
+                    {
+                        currResult = currMachine.run(currInputList);
+                        errorLabel.setText(""); 
+                        inputStringTextField.setText("");
+                        childFrame.passResults(currMachine, currResult, currInputList, currMachine.Q.get(0).getName());
+                    } else
+                    {
+                        errorLabel.setText("Input has invalid characters not part of input alphabet!"); 
+                    }
                 }
             }
         });
+        errorLabel = new JLabel("");
+        bottomButtonPanel.add(errorLabel, BorderLayout.NORTH);
         bottomButtonPanel.add(inputStringTextField, BorderLayout.SOUTH);
         bottomButtonPanel.add(inputStringSubmitButton, BorderLayout.SOUTH);
         
@@ -183,7 +195,16 @@ public class MainFrame extends JFrame{
         System.out.println(filename);
 
         readGrammar = new ReadGrammar(filename);
-        currMachine = readGrammar.loadGrammar();
+        try
+        {
+            currMachine = readGrammar.loadGrammar();
+            errorLabel.setText(""); 
+        } catch(IOException ioException)
+        {
+            System.out.println("Invalid File Format!");
+            errorLabel.setText("Invalid File Format!"); 
+        }
+        
 
         updateMachineInfo();
     }
@@ -246,6 +267,16 @@ public class MainFrame extends JFrame{
         finalStateLabel.setText(finalStatesText);
 
         // Set transition function for transitionTable;
+        while(true)
+        {
+            try {
+                transitionTableModel.removeRow(1);
+            } catch (Exception e) {
+                // TODO: handle exception
+                break;
+            }
+        }
+
         for(int i = 0; i < currMachine.Delta.size(); i++)
         {
             String rowData[] = {currMachine.Delta.get(i).showTransition()};

@@ -144,7 +144,7 @@ public class TracingFrame extends JFrame
         {
             //Generate String from current Step
             String currString = "";
-            for(int i = 0; i < treeLayer; i++)
+            for(int i = 0; i < currLayer; i++)
                 currString += inputList.get(i);
 
             //Get the children in the chosen layer
