@@ -62,7 +62,7 @@ public class Transition
                 }
             }
             
-            if (!pushToStack1.contains('&'))
+            if (!pushToStack2.contains('&'))
             {
                 if (topOfStack2 != '&')
                 {

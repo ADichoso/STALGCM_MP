@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Machine {
 
@@ -33,6 +34,7 @@ public class Machine {
 
     public boolean run(ArrayList<Character> inputString)
     {
+        Collections.reverse(inputString);
         root = new TreeDS();
         //WARNING: NOT OPTIMIZED FOR GUI (yet)
         //loop through arraylist transition, if transition has same start state, continue with function
@@ -50,8 +52,8 @@ public class Machine {
                 nextNode.printValue();
                 //append it to the tree
                 root.addChild(nextNode);
-
-
+                System.out.println("Input String: " + inputString.toString());
+                System.out.println("Current Input: " + inputString.get(0));
                 System.out.println("=====================================================START OF START STATE ============================================");
                 //if the first transition function is accepted, continue with the path, else ignore and move on.
                 transition.printTransition();
@@ -65,7 +67,7 @@ public class Machine {
                     
                 if (result == true)
                 {
-                    //System.out.println("ACCEPTED");
+                    System.out.println("ACCEPTED");
                     return true;
                 }
             }
@@ -82,14 +84,13 @@ public class Machine {
         Stack oldStack2 = new Stack(stack2);
 
         //if this is the last input, check if the current state is an accepting state
-        System.out.println("Current State: " + currentState.getName());
- 
         if (inputString.size() == index)
         {
             currentNode.setAccepted();
             return F.contains(currentState);   
         }
-
+        System.out.println("Current Input: " + inputString.get(index));
+        System.out.println("Current State: " + currentState.getName());
         for(Transition transition: Delta) {
 
 
