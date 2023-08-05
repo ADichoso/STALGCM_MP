@@ -34,7 +34,7 @@ public class Machine {
 
     public boolean run(ArrayList<Character> inputString)
     {
-        Collections.reverse(inputString);
+        //Collections.reverse(inputString);
         root = new TreeDS();
         //WARNING: NOT OPTIMIZED FOR GUI (yet)
         //loop through arraylist transition, if transition has same start state, continue with function
