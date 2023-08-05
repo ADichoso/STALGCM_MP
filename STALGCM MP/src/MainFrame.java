@@ -63,7 +63,7 @@ public class MainFrame extends JFrame{
         
         machineFileButton.addActionListener(e -> 
         {
-            JFileChooser fileChooser = new JFileChooser();
+            JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")+"/STALGCM MP/src/machines");
 
             int result = fileChooser.showOpenDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
