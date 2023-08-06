@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 public class TransitionPanel extends JPanel{
 
-    public TransitionPanel(TreeDS treeNode, String currentInputString, boolean isParentRoot, String initialStateName)
+    public TransitionPanel(TreeDS treeNode, boolean isParentRoot, String initialStateName)
     {
         super();
         //Basic JPanel attributes
@@ -34,6 +34,11 @@ public class TransitionPanel extends JPanel{
         String stack2Text = "Stack 2 Contents: " + treeNode.getStack(2).showStack();
         JLabel stack2Label = new JLabel(stack2Text, SwingConstants.CENTER);
 
+
+        String currentInputString = "";
+        for(int i = 0; i < treeNode.getInputStringIndex(); i++)
+            currentInputString += treeNode.getInputString().get(i);
+            
         String inputStringText = "Current Input: " + currentInputString;
         JLabel inputStringLabel = new JLabel(inputStringText, SwingConstants.CENTER);
         add(transitionLabel);

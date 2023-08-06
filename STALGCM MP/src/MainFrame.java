@@ -159,7 +159,7 @@ public class MainFrame extends JFrame{
                     currResult = currMachine.run(currInputList);
                     errorLabel.setText(""); 
                     inputStringTextField.setText("");
-                    childFrame.passResults(currMachine, currResult, currInputList, currMachine.Q.get(0).getName());
+                    childFrame.passResults(currMachine, currResult, currMachine.Q.get(0).getName());
                 } else errorLabel.setText("Input has invalid characters not part of input alphabet!");  
             } else errorLabel.setText("No Machine has been Selected!"); 
         });

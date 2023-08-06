@@ -121,11 +121,10 @@ public class Machine {
                 nextNode.printValue();
                 //append it to the tree
                 currentNode.addChild(nextNode);
-                
+
                 //if the conditions of the transition function are satisfied and the two stacks are updated.
                 if (accepted)
                 {
-
                     //if transition takes in a lambda input, dont proceed with the next input but continue with the next transition function
                     if(transition.getInput() == '&' || inputString.size() <= index + 1)
                     {

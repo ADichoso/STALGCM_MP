@@ -78,6 +78,15 @@ public class TreeDS
         return accepted;
     }
 
+    public ArrayList<Character> getInputString()
+    {
+        return inputString;
+    }
+
+    public int getInputStringIndex()
+    {
+        return inputStringIndex;
+    }
     public Stack getStack(int stackNumber)
     {
         if (stackNumber == 1)

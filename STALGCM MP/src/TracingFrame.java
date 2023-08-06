@@ -68,11 +68,9 @@ public class TracingFrame extends JFrame
     private int currLayer;
     private int numLayers;
     private ArrayList<ArrayList<TreeDS>> TreeLayers = new ArrayList<ArrayList<TreeDS>>();
-    private ArrayList<Character> inputList = new ArrayList<Character>();
     private String initialStateName;
-    public void passResults(Machine machine, boolean result, ArrayList<Character> inputList, String initialStateName)
+    public void passResults(Machine machine, boolean result, String initialStateName)
     {
-        this.inputList = (ArrayList<Character>) inputList.clone();
         this.initialStateName = initialStateName;
 
         currMachine = machine;
@@ -143,10 +141,6 @@ public class TracingFrame extends JFrame
         else
         {
             System.out.println("==============GENERATING NEW LAYER==============");
-            //Generate String from current Step
-            String currString = "";
-            for(int i = 0; i < currLayer; i++)
-                currString += inputList.get(i);
 
             //Get the children in the chosen layer
             ArrayList<TreeDS> currLayerTrees = TreeLayers.get(currLayer);
@@ -156,9 +150,9 @@ public class TracingFrame extends JFrame
             {
                 TransitionPanel newPanel;
                 if(currLayer == 1)
-                    newPanel = new TransitionPanel(currTree, currString, true, initialStateName);
+                    newPanel = new TransitionPanel(currTree, true, initialStateName);
                 else
-                    newPanel = new TransitionPanel(currTree, currString, false, initialStateName);
+                    newPanel = new TransitionPanel(currTree, false, initialStateName);
                 
                 transitionsList.add(newPanel);
             }
