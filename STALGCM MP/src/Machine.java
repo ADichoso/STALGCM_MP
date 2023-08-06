@@ -87,23 +87,28 @@ public class Machine {
         Stack oldStack2 = new Stack(stack2);
 
         //if this is the last input, check if the current state is an accepting state
-        if (inputString.size() == index && stack1.isEmpty() && stack2.isEmpty())
+        if (inputString.size() - 1 == index && stack1.isEmpty() && stack2.isEmpty())
         {
             currentNode.setAccepted();
             return true;   
         }
 
-        if (inputString.size() == index && F.contains(currentState))
+        if (inputString.size() - 1 == index)
         {
-            currentNode.setAccepted();
-            return true;
+            for (State state: F) {
+                if (state.getName().equals(currentTransition.getCurrentState().getName())) {
+                    currentNode.setAccepted();
+                    return true;
+                }
+            }
+
         }
         //System.out.println("Current Input: " + inputString.get(index));
         //System.out.println("Current State: " + currentState.getName());
         for(Transition transition: Delta) {
 
             //if the transition function has the same current state as the parameter and the input string is still not empty
-            if (transition.getCurrentState() == currentState && inputString.size() > index) {
+            if (transition.getCurrentState() == currentState) {
 
                 
                 // stack1.printStack();
@@ -135,7 +140,7 @@ public class Machine {
                         legal = checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
                     }
                 }
-                
+
                 if (legal) return legal;
                 
                 stack1 = new Stack(oldStack1);
@@ -164,4 +169,6 @@ public class Machine {
     {
         return root;
     }
+
+    
 }
