@@ -57,7 +57,7 @@ public class Machine {
                 stack1.printStack();
                 stack2.printStack();
 
-                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
+                TreeDS nextNode = new TreeDS(transition, stack1, stack2, inputString, 0);
                 System.out.println(0);
                 nextNode.printValue();
                 //append it to the tree
@@ -87,13 +87,13 @@ public class Machine {
         Stack oldStack2 = new Stack(stack2);
 
         //if this is the last input, check if the current state is an accepting state
-        if (inputString.size() == index)
+        if (inputString.size() == index && stack1.isEmpty() && stack2.isEmpty())
         {
             currentNode.setAccepted();
             return F.contains(currentState);   
         }
-        System.out.println("Current Input: " + inputString.get(index));
-        System.out.println("Current State: " + currentState.getName());
+        //System.out.println("Current Input: " + inputString.get(index));
+        //System.out.println("Current State: " + currentState.getName());
         for(Transition transition: Delta) {
 
             //if the transition function has the same current state as the parameter and the input string is still not empty
@@ -110,7 +110,7 @@ public class Machine {
                 stack2.printStack();
 
                 //make new child node for the current transition function
-                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
+                TreeDS nextNode = new TreeDS(transition, stack1, stack2, inputString, index);
                 System.out.println(index);
                 nextNode.printValue();
                 //append it to the tree
@@ -121,7 +121,7 @@ public class Machine {
                 {
 
                     //if transition takes in a lambda input, dont proceed with the next input but continue with the next transition function
-                    if(transition.getInput() == '&')
+                    if(transition.getInput() == '&' || inputString.size() <= index + 1)
                     {
                         legal = checkPath(transition.getTargetState(), inputString, index, nextNode, transition, stack1, stack2);
                     }
@@ -130,9 +130,10 @@ public class Machine {
                         legal = checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
                     }
                 }
-
-                if (legal) return legal;
-
+                if (legal) {
+                    nextNode.setAccepted();
+                    return legal;
+                }
                 stack1 = new Stack(oldStack1);
                 stack2 = new Stack(oldStack2);
 

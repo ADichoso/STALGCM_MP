@@ -1,9 +1,12 @@
 //Tree Data Structure
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 public class TreeDS 
 {
     private Transition value;
+    private ArrayList<Character> inputString;
+    private int inputStringIndex = 0;
     private boolean accepted = false;
     private boolean isLeaf = true;
     private List<TreeDS> childNodes;
@@ -19,13 +22,15 @@ public class TreeDS
         
     }
     
-    public TreeDS(Transition value, Stack stack1, Stack stack2) 
+    public TreeDS(Transition value, Stack stack1, Stack stack2, ArrayList<Character> inputString, int index) 
     {
         this.value = value;
         this.childNodes = new LinkedList<>();
         this.parent = null;
         this.stack1 = new Stack(stack1);
         this.stack2 = new Stack(stack2);
+        this.inputString = (ArrayList<Character>) inputString.clone();
+        this.inputStringIndex = index;
         // System.out.println("STACK for the new node");
         // stack1.printStack();
         // stack2.printStack();
