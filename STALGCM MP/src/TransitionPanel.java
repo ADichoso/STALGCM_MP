@@ -15,6 +15,12 @@ public class TransitionPanel extends JPanel{
         String transitionText = "Transition Function: " + treeNode.getValue().showTransition();
         JLabel transitionLabel = new JLabel(transitionText, SwingConstants.CENTER);
         
+        System.out.println("==============EXPANDED============");
+        if(!isParentRoot) System.out.println(treeNode.getParent().getValue().showTransition());
+        else System.out.println("No parent Root");
+        System.out.println(treeNode.getValue().showTransition());
+        System.out.println("==============++++++++============");
+        
         String stateText = ""; 
         if(isParentRoot)
             stateText = "Starting at " + initialStateName;

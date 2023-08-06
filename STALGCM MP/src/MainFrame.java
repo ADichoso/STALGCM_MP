@@ -153,24 +153,18 @@ public class MainFrame extends JFrame{
             if(currMachine != null)
             {
                 String input = inputStringTextField.getText();
-                if(!input.equals(""))
+               currInputList = stringToArrayList(input);
+                if(isValidInput())
                 {
-                    currInputList = stringToArrayList(input);
-                    if(isValidInput())
-                    {
-                        currResult = currMachine.run(currInputList);
-                        errorLabel.setText(""); 
-                        inputStringTextField.setText("");
-                        childFrame.passResults(currMachine, currResult, currInputList, currMachine.Q.get(0).getName());
-                    } else
-                    {
-                        errorLabel.setText("Input has invalid characters not part of input alphabet!"); 
-                    }
-                }
-            }
+                    currResult = currMachine.run(currInputList);
+                    errorLabel.setText(""); 
+                    inputStringTextField.setText("");
+                    childFrame.passResults(currMachine, currResult, currInputList, currMachine.Q.get(0).getName());
+                } else errorLabel.setText("Input has invalid characters not part of input alphabet!");  
+            } else errorLabel.setText("No Machine has been Selected!"); 
         });
         errorLabel = new JLabel("");
-        bottomButtonPanel.add(errorLabel, BorderLayout.NORTH);
+        bottomButtonPanel.add(errorLabel, BorderLayout.SOUTH);
         bottomButtonPanel.add(inputStringTextField, BorderLayout.SOUTH);
         bottomButtonPanel.add(inputStringSubmitButton, BorderLayout.SOUTH);
         

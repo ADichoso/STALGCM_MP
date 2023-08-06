@@ -93,7 +93,6 @@ public class Machine {
         System.out.println("Current State: " + currentState.getName());
         for(Transition transition: Delta) {
 
-
             //if the transition function has the same current state as the parameter and the input string is still not empty
             if (transition.getCurrentState() == currentState && inputString.size() > index) {
 

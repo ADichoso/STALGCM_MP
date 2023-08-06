@@ -113,7 +113,7 @@ public class TracingFrame extends JFrame
 
         System.out.println(TreeLayers);
 
-        numLayers = TreeLayers.size();
+        numLayers = TreeLayers.size() - 1;
         showResults(0);
     }
 
@@ -121,8 +121,8 @@ public class TracingFrame extends JFrame
     {
         if(treeLayer < 0)
             currLayer = 0;
-        else if (treeLayer > numLayers - 1)
-            currLayer = numLayers - 1;
+        else if (treeLayer > numLayers)
+            currLayer = numLayers;
         else
             currLayer = treeLayer;
 
@@ -142,9 +142,10 @@ public class TracingFrame extends JFrame
         }
         else
         {
+            System.out.println("==============GENERATING NEW LAYER==============");
             //Generate String from current Step
             String currString = "";
-            for(int i = 0; i < currLayer; i++)
+            for(int i = 0; i < currLayer - 1; i++)
                 currString += inputList.get(i);
 
             //Get the children in the chosen layer
