@@ -90,7 +90,13 @@ public class Machine {
         if (inputString.size() == index && stack1.isEmpty() && stack2.isEmpty())
         {
             currentNode.setAccepted();
-            return F.contains(currentState);   
+            return true;   
+        }
+
+        if (inputString.size() == index && F.contains(currentState))
+        {
+            currentNode.setAccepted();
+            return true;
         }
         //System.out.println("Current Input: " + inputString.get(index));
         //System.out.println("Current State: " + currentState.getName());
@@ -130,10 +136,9 @@ public class Machine {
                         legal = checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
                     }
                 }
-                if (legal) {
-                    nextNode.setAccepted();
-                    return legal;
-                }
+                
+                if (legal) return legal;
+                
                 stack1 = new Stack(oldStack1);
                 stack2 = new Stack(oldStack2);
 
