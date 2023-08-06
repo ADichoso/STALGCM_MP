@@ -47,11 +47,7 @@ public class Machine {
                 stack1 = new Stack(Z1);
                 stack2 = new Stack(Z2);
                 
-                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
-                System.out.println(0);
-                nextNode.printValue();
-                //append it to the tree
-                root.addChild(nextNode);
+                
                 System.out.println("Input String: " + inputString.toString());
                 System.out.println("Current Input: " + inputString.get(0));
                 System.out.println("=====================================================START OF START STATE ============================================");
@@ -60,6 +56,13 @@ public class Machine {
                 boolean accepted = transition.replace(stack1, stack2, inputString.get(0));
                 stack1.printStack();
                 stack2.printStack();
+
+                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
+                System.out.println(0);
+                nextNode.printValue();
+                //append it to the tree
+                root.addChild(nextNode);
+
                 if (accepted)
                 {
                     result = checkPath (transition.getTargetState(), inputString, 1, nextNode, transition, stack1, stack2);
@@ -96,12 +99,7 @@ public class Machine {
             //if the transition function has the same current state as the parameter and the input string is still not empty
             if (transition.getCurrentState() == currentState && inputString.size() > index) {
 
-                //make new child node for the current transition function
-                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
-                System.out.println(index);
-                nextNode.printValue();
-                //append it to the tree
-                currentNode.addChild(nextNode);
+                
                 // stack1.printStack();
                 // stack2.printStack();
                 //System.out.println(accepted);
@@ -111,6 +109,13 @@ public class Machine {
                 stack1.printStack();
                 stack2.printStack();
 
+                //make new child node for the current transition function
+                TreeDS nextNode = new TreeDS(transition, stack1, stack2);
+                System.out.println(index);
+                nextNode.printValue();
+                //append it to the tree
+                currentNode.addChild(nextNode);
+                
                 //if the conditions of the transition function are satisfied and the two stacks are updated.
                 if (accepted)
                 {
