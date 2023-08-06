@@ -87,16 +87,19 @@ public class Machine {
         Stack oldStack2 = new Stack(stack2);
 
         //if this is the last input, check if the current state is an accepting state
-        if (inputString.size() - 1 == index && stack1.isEmpty() && stack2.isEmpty())
+        if (inputString.size() - 1 <= index && stack1.isEmpty() && stack2.isEmpty())
         {
             currentNode.setAccepted();
             return true;   
         }
 
-        if (inputString.size() - 1 == index)
+        if (inputString.size() - 1 <= index)
         {
+            currentTransition.printTransition();    
+            System.out.println("TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             for (State state: F) {
-                if (state.getName().equals(currentTransition.getCurrentState().getName())) {
+                if (state.getName().equals(currentNode.getValue().getTargetState().getName())) {
+                    
                     currentNode.setAccepted();
                     return true;
                 }
