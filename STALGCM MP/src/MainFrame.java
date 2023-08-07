@@ -11,15 +11,26 @@ public class MainFrame extends JFrame{
     public ArrayList<Character> stringToArrayList(String oldString)
     {
         ArrayList<Character> newStringList = new ArrayList<Character>();
-        //Loop through the characters in the string
-        for(int i = 0; i < oldString.length(); i++)
-            newStringList.add(oldString.charAt(i));
+
+        if(oldString.equals(""))
+        {
+            newStringList.add('&');
+        }
+        else
+        {
+            //Loop through the characters in the string
+            for(int i = 0; i < oldString.length(); i++)
+                newStringList.add(oldString.charAt(i));
+        }
+        
         
         return newStringList;
     }
 
     public boolean isValidInput()
     {
+        if(currInputList.get(0) == '&') return true; 
+        
         for(int i = 0; i < currInputList.size(); i++)
             if(!currMachine.E.contains(currInputList.get(i)))
                 return false;
