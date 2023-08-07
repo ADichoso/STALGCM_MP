@@ -97,23 +97,29 @@ public class Machine {
             return true;   
         }
 
-        if (index == inputString.size() - 1)
+        if (index > inputString.size() - 1)
         {
+            System.out.println("SUPPOSED TO BE HERE");
             currentTransition.printTransition();
-            for (State state: F) {
-                if (state.getName().equals(currentNode.getValue().getTargetState().getName())) {
-                    System.out.println("ACCEPTED BY FINAL STATE");
-                    currentNode.setAccepted();
-                    return true;
-                }
+            if (currentTransition.getTargetState().getName() == currentState.getName())
+            {
+                    for (State state: F) {
+                        if (state.getName().equals(currentState.getName())) {
+                            System.out.println("ACCEPTED BY FINAL STATE");
+                            currentNode.setAccepted();
+                            return true;
+                        }
+                    }
             }
+
         }
+
         //System.out.println("Current Input: " + inputString.get(index));
         //System.out.println("Current State: " + currentState.getName());
         for(Transition transition: Delta) {
 
             //if the transition function has the same current state as the parameter and the input string is still not empty
-            if (transition.getCurrentState() == currentState) {
+            if (transition.getCurrentState() == currentState && index < inputString.size() + 1) {
 
                 
                 // stack1.printStack();
@@ -121,7 +127,14 @@ public class Machine {
                 //System.out.println(accepted);
 
                 //attempt to replace the top of the stack with the input, returns false if the conditions stated in the transition function is not satisfied.
-                boolean accepted = transition.replace(stack1, stack2, inputString.get(index));
+                boolean accepted = false;
+                if (transition.getInput() == '&' )
+                {
+                    accepted = transition.replace(stack1, stack2, '&');
+                } else {
+                    if (index < inputString.size())
+                        accepted = transition.replace(stack1, stack2, inputString.get(index));
+                }
                 stack1.printStack();
                 stack2.printStack();
 
@@ -135,7 +148,7 @@ public class Machine {
                 if (accepted)
                 {
                     //if transition takes in a lambda input, dont proceed with the next input but continue with the next transition function
-                    if(transition.getInput() == '&' || inputString.size() <= index + 1)
+                    if(transition.getInput() == '&')
                     {
                         System.out.println("Input should be LAMBDA HERE: " +  transition.getInput());
                         legal = checkPath(transition.getTargetState(), inputString, index, nextNode, transition, stack1, stack2);

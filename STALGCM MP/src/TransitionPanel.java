@@ -36,7 +36,7 @@ public class TransitionPanel extends JPanel{
 
 
         String currentInputString = "";
-        for(int i = 0; i < treeNode.getInputStringIndex() + 1; i++)
+        for(int i = 0; i < treeNode.getInputStringIndex(); i++)
             currentInputString += treeNode.getInputString().get(i);
             
         String inputStringText = "Current Input: " + currentInputString;
