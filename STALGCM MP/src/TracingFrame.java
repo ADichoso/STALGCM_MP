@@ -5,6 +5,8 @@ public class TracingFrame extends JFrame
 {
     private JPanel transitionsPanel;
     private ArrayList<TransitionPanel> transitionsList = new ArrayList<TransitionPanel>();
+    private JLabel iterationsLabel;
+    private JLabel expandedNodesLabel;
     public TracingFrame()
     {
         super();
@@ -19,8 +21,8 @@ public class TracingFrame extends JFrame
         JPanel topButtonPanel = new JPanel();
         topButtonPanel.setSize(360, 60);
         topButtonPanel.setLayout(new FlowLayout());
-        JLabel iterationsLabel = new JLabel("Iterations: 69");
-        JLabel expandedNodesLabel = new JLabel("Expanded Nodes: 420");
+        iterationsLabel = new JLabel("Iterations: 0");
+        expandedNodesLabel = new JLabel("Expanded Nodes: 0");
 
         topButtonPanel.add(iterationsLabel);
         topButtonPanel.add(expandedNodesLabel);
@@ -62,19 +64,14 @@ public class TracingFrame extends JFrame
 
         add(bottomButtonPanel, BorderLayout.SOUTH);
     }
-
-    private Machine currMachine;
-    private boolean currResult;
     private int currLayer;
     private int numLayers;
     private ArrayList<ArrayList<TreeDS>> TreeLayers = new ArrayList<ArrayList<TreeDS>>();
     private String initialStateName;
     public void passResults(Machine machine, boolean result, String initialStateName)
     {
+        TreeLayers = new ArrayList<ArrayList<TreeDS>>();
         this.initialStateName = initialStateName;
-
-        currMachine = machine;
-        currResult = result;
 
         //Go through the child nodes
         TreeDS root = machine.getTree();
@@ -133,10 +130,12 @@ public class TracingFrame extends JFrame
             //Special case at the start.
             JPanel startPanel = new JPanel();
 
-            JLabel startText = new JLabel("Starting State Here! Click Next Iteration to explore states by step!");
+            JLabel startText = new JLabel("<html>Starting State Here!<br>Click Next Iteration to explore states by step!</html>");
             startPanel.add(startText);
             
             transitionsPanel.add(startPanel);
+            iterationsLabel.setText("Iterations: 0");
+            expandedNodesLabel.setText("Expanded Nodes: 0");
         }
         else
         {
@@ -144,6 +143,12 @@ public class TracingFrame extends JFrame
 
             //Get the children in the chosen layer
             ArrayList<TreeDS> currLayerTrees = TreeLayers.get(currLayer);
+            
+            //Get expanded nodes
+            int expandedNodes = 0;
+            for(int i = 1; i <= currLayer; i++)
+                expandedNodes += TreeLayers.get(i).size();
+            
             
             //Go to the specified layer in the tree, if possible
             for(TreeDS currTree : currLayerTrees)
@@ -160,6 +165,9 @@ public class TracingFrame extends JFrame
             //Display the transitions
             for(TransitionPanel currPanel : transitionsList)
                 transitionsPanel.add(currPanel);
+            
+            iterationsLabel.setText("Iterations: " + currLayer);
+            expandedNodesLabel.setText("Expanded Nodes: " + expandedNodes);
         }
         
         transitionsPanel.revalidate();

@@ -163,11 +163,40 @@ public class MainFrame extends JFrame{
                 } else errorLabel.setText("Input has invalid characters not part of input alphabet!");  
             } else errorLabel.setText("No Machine has been Selected!"); 
         });
+
+        //This one will submit the input string for reading
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(e ->
+        {
+            startStateLabel.setText("Start State:");
+            statesLabel.setText("States: {}");
+            inputAlphabetLabel.setText("Input Alphabet: {}");
+            stackAlphabetLabel.setText("Stack Alphabet: {}");
+            transitionLabel.setText("Transition Table:");
+            finalStateLabel.setText("Final State/s: {}");
+
+            currMachine = null;
+            filename = null;
+            readGrammar = null;
+            // Set transition function for transitionTable;
+            while(true)
+            {
+                try {
+                    transitionTableModel.removeRow(1);
+                } catch (Exception tableError) {
+                    // TODO: handle exception
+                    break;
+                }
+            }
+        });
+
+
         errorLabel = new JLabel("");
         bottomButtonPanel.add(errorLabel, BorderLayout.SOUTH);
         bottomButtonPanel.add(inputStringTextField, BorderLayout.SOUTH);
         bottomButtonPanel.add(inputStringSubmitButton, BorderLayout.SOUTH);
-        
+        bottomButtonPanel.add(clearButton, BorderLayout.SOUTH);
+
         add(topPanel, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
         add(bottomButtonPanel, BorderLayout.SOUTH);
