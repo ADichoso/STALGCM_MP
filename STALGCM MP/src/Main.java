@@ -1,3 +1,10 @@
+/**
+ * Group Members:
+ * Aaron Gabrielle C. Dichoso
+ * John Kirsten Espiritu
+ * Luis Miguel Razon
+ */
+
 import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
