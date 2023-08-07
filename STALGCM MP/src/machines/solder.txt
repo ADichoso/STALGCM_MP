@@ -1,0 +1,21 @@
+7
+A B C D E F G
+3
+a b c
+Z Z 
+2 
+X Z
+10
+A & & & B & &
+A a Z & A XZ &
+A a X & A XX &
+B b X & C & X
+C b & & B & &
+B & & & D & &
+D c & X E & &
+E c & & F & &
+F c & & D & &
+D & Z Z G Z Z
+A 
+1 
+G
