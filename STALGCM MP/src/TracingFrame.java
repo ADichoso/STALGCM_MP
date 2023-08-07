@@ -29,17 +29,26 @@ public class TracingFrame extends JFrame
 
         add(topButtonPanel, BorderLayout.NORTH);
 
-        transitionsPanel = new JPanel();
-        transitionsPanel.setSize(360, 600);
-        transitionsPanel.setLayout(new FlowLayout());
         
-        add(transitionsPanel, BorderLayout.CENTER);
 
         JPanel bottomButtonPanel = new JPanel();
         bottomButtonPanel.setSize(360, 60);
         bottomButtonPanel.setLayout(new FlowLayout());
         JButton previousStatesButton = new JButton("Previous Iteration");
         JButton nextStatesButton = new JButton("Next Iteration");
+
+        transitionsPanel = new JPanel();
+        transitionsPanel.setSize(360, 600);
+        transitionsPanel.setLayout(new BoxLayout(transitionsPanel, BoxLayout.Y_AXIS));
+        
+        JPanel parentPanel = new JPanel();
+        add(parentPanel, BorderLayout.CENTER);
+
+        JScrollPane scrollableArea = new JScrollPane(transitionsPanel);  
+        
+        scrollableArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+
+        parentPanel.add(scrollableArea, BorderLayout.NORTH);
 
         previousStatesButton.addActionListener(e -> 
         {

@@ -3,6 +3,9 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame{
@@ -30,7 +33,7 @@ public class MainFrame extends JFrame{
     public boolean isValidInput()
     {
         if(currInputList.get(0) == '&') return true; 
-        
+
         for(int i = 0; i < currInputList.size(); i++)
             if(!currMachine.E.contains(currInputList.get(i)))
                 return false;
@@ -89,6 +92,18 @@ public class MainFrame extends JFrame{
             }
         });
 
+
+        JButton linkButton = new JButton("Github Link!");
+        linkButton.addActionListener(e -> 
+        {
+            try {
+                Desktop.getDesktop().browse(new URL("https://github.com/AaronRdm/STALGCM_MP").toURI());
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        
+        topPanel.add(linkButton);
         topPanel.add(machineFileButton);
         topPanel.add(titleLabel);
         
