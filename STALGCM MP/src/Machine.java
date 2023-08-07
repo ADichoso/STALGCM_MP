@@ -53,12 +53,13 @@ public class Machine {
                 System.out.println("=====================================================START OF START STATE ============================================");
                 //if the first transition function is accepted, continue with the path, else ignore and move on.
                 transition.printTransition();
+                System.out.println("Index: " + 0 + " Out of: " + (inputString.size() - 1));
                 boolean accepted = transition.replace(stack1, stack2, inputString.get(0));
                 stack1.printStack();
                 stack2.printStack();
 
                 TreeDS nextNode = new TreeDS(transition, stack1, stack2, inputString, 0);
-                System.out.println(0);
+                
                 nextNode.printValue();
                 //append it to the tree
                 root.addChild(nextNode);
@@ -83,28 +84,29 @@ public class Machine {
     {
         boolean legal = false;
         System.out.println("=======================================================================");
+        System.out.println("Index: " + index + " Out of: " + (inputString.size() - 1));
+
         Stack oldStack1 = new Stack(stack1);
         Stack oldStack2 = new Stack(stack2);
 
         //if this is the last input, check if the current state is an accepting state
-        if (inputString.size() - 1 <= index && stack1.isEmpty() && stack2.isEmpty())
+        if (index == inputString.size() - 1 && stack1.isEmpty() && stack2.isEmpty())
         {
+            System.out.println("ACCEPTED BY EMPTY STACK");
             currentNode.setAccepted();
             return true;   
         }
 
-        if (inputString.size() - 1 <= index)
+        if (index == inputString.size() - 1)
         {
-            currentTransition.printTransition();    
-            System.out.println("TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+            currentTransition.printTransition();
             for (State state: F) {
                 if (state.getName().equals(currentNode.getValue().getTargetState().getName())) {
-                    
+                    System.out.println("ACCEPTED BY FINAL STATE");
                     currentNode.setAccepted();
                     return true;
                 }
             }
-
         }
         //System.out.println("Current Input: " + inputString.get(index));
         //System.out.println("Current State: " + currentState.getName());
@@ -125,7 +127,6 @@ public class Machine {
 
                 //make new child node for the current transition function
                 TreeDS nextNode = new TreeDS(transition, stack1, stack2, inputString, index);
-                System.out.println(index);
                 nextNode.printValue();
                 //append it to the tree
                 currentNode.addChild(nextNode);
@@ -136,10 +137,12 @@ public class Machine {
                     //if transition takes in a lambda input, dont proceed with the next input but continue with the next transition function
                     if(transition.getInput() == '&' || inputString.size() <= index + 1)
                     {
+                        System.out.println("Input should be LAMBDA HERE: " +  transition.getInput());
                         legal = checkPath(transition.getTargetState(), inputString, index, nextNode, transition, stack1, stack2);
                     }
                     else
                     {
+                        System.out.println("Input should NOT be LAMBDA HERE: " +  transition.getInput());
                         legal = checkPath(transition.getTargetState(), inputString, index + 1, nextNode, transition, stack1, stack2);              
                     }
                 }

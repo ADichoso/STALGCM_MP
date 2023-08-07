@@ -57,7 +57,10 @@ public class Stack
 
     public void printStack()
     {
-        System.out.println(stack);
+        if(stack.size() == 0)
+            System.out.println("[]");
+        else
+            System.out.println(stack);
     }
 
     public String showStack()
