@@ -42,6 +42,8 @@ public class MainFrame extends JFrame{
     public ArrayList<Character> currInputList;
 
     private JButton machineFileButton;
+    private JLabel startStack1Label;
+    private JLabel startStack2Label;
     private JLabel startStateLabel;
     private JLabel statesLabel;
     private JLabel inputAlphabetLabel;
@@ -115,6 +117,8 @@ public class MainFrame extends JFrame{
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
         startStateLabel = new JLabel("Start State:", SwingConstants.CENTER);
+        startStack1Label = new JLabel("Start Stack 1:", SwingConstants.CENTER);
+        startStack2Label = new JLabel("Start Stack 2:", SwingConstants.CENTER);
         statesLabel = new JLabel("States: {}", SwingConstants.CENTER);
         inputAlphabetLabel = new JLabel("Input Alphabet: {}", SwingConstants.CENTER);
         stackAlphabetLabel = new JLabel("Stack Alphabet: {}", SwingConstants.CENTER);
@@ -122,6 +126,8 @@ public class MainFrame extends JFrame{
         finalStateLabel = new JLabel("Final State/s: {}", SwingConstants.CENTER);
 
         startStateLabel.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, 14));
+        startStack1Label.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, 14));
+        startStack2Label.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, 14));
         statesLabel.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, 14));
         inputAlphabetLabel.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, 14));
         stackAlphabetLabel.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, 14));
@@ -136,6 +142,8 @@ public class MainFrame extends JFrame{
         transitionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         startStateLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+        startStack1Label.setBorder(BorderFactory.createLineBorder(Color.black));
+        startStack2Label.setBorder(BorderFactory.createLineBorder(Color.black));
         statesLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         inputAlphabetLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         stackAlphabetLabel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -144,6 +152,10 @@ public class MainFrame extends JFrame{
         finalStateLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         
         contentPanel.add(startStateLabel);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(startStack1Label);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(startStack2Label);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(statesLabel);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -195,6 +207,8 @@ public class MainFrame extends JFrame{
         clearButton.addActionListener(e ->
         {
             startStateLabel.setText("Start State:");
+            startStack1Label.setText("Start Stack 1:");
+            startStack2Label.setText("Start Stack 2:");
             statesLabel.setText("States: {}");
             inputAlphabetLabel.setText("Input Alphabet: {}");
             stackAlphabetLabel.setText("Stack Alphabet: {}");
@@ -262,7 +276,8 @@ public class MainFrame extends JFrame{
     {
         //Show Info of states
         startStateLabel.setText("Start State: " + currMachine.Q.get(0).getName());
-
+        startStack1Label.setText("Start Stack 1: " + currMachine.Z1);
+        startStack2Label.setText("Start Stack 2: " + currMachine.Z2);
         //List of States
         String statesText = "States: {";
         for(int i = 0; i < currMachine.Q.size(); i++)
