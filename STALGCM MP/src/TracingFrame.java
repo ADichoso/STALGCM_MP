@@ -42,14 +42,16 @@ public class TracingFrame extends JFrame
         transitionsPanel.setLayout(new BoxLayout(transitionsPanel, BoxLayout.Y_AXIS));
         
         JPanel parentPanel = new JPanel();
-        add(parentPanel, BorderLayout.CENTER);
-
+        parentPanel.setLayout(new BorderLayout());
+        
         JScrollPane scrollableArea = new JScrollPane(transitionsPanel);  
         
         scrollableArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
 
         parentPanel.add(scrollableArea, BorderLayout.NORTH);
 
+        
+        add(parentPanel, BorderLayout.CENTER);
         previousStatesButton.addActionListener(e -> 
         {
             if(TreeLayers.size() != 0)
